@@ -3,18 +3,26 @@ package client;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+
+
+
+
 public class ClientFrame extends javax.swing.JFrame {
     
     Client client;
     Calendar last_update;
 
     public ClientFrame(Client client) {
+        
         this.client = client;
         this.last_update=Calendar.getInstance();
         initComponents();
         refresh.start();
-    }
         
+    }
+           
+             
+          
            Thread refresh = new Thread(new Runnable() {
 
             @Override
