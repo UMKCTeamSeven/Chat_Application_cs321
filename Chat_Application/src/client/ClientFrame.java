@@ -1,17 +1,13 @@
 package client;
 
-import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
 
 public class ClientFrame extends javax.swing.JFrame {
     
     Client client;
     Calendar last_update;
 
-    
-    
     public ClientFrame(Client client) {
         this.client = client;
         this.last_update=Calendar.getInstance();
@@ -23,30 +19,18 @@ public class ClientFrame extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                IsTyping();
                 while(true) {
                     try {
                         Thread.sleep(10000);
                         get_chat();
                         user_list();
-                       
                     } catch (InterruptedException e) {
                     }
                 }
             }
         });
-           
-           public static void infoBox(String infoMessage, String titleBar)
-             {
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-             }
     
-           public void IsTyping()
-           {
-               chat_txt.addKeyListener(null);
-               infoBox("InFunction", "Title");
-           }
-           
+    
     public void get_chat(){
         LinkedList<String> stories = client.get_chat(client.username, this.last_update);
         for(String story:stories){
@@ -71,17 +55,13 @@ public class ClientFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        jButton1 = new javax.swing.JButton();
         send = new javax.swing.JButton();
         scroll_panel = new javax.swing.JScrollPane();
         chat_window = new javax.swing.JTextArea();
         chat_txt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         online_users = new javax.swing.JTextArea();
-
-        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(client.username);
@@ -98,9 +78,6 @@ public class ClientFrame extends javax.swing.JFrame {
         chat_window.setRows(5);
         scroll_panel.setViewportView(chat_window);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, chat_txt, org.jdesktop.beansbinding.ELProperty.create("${text_ON_FOCUS_LOST}"), chat_txt, org.jdesktop.beansbinding.BeanProperty.create("action"));
-        bindingGroup.addBinding(binding);
-
         online_users.setColumns(20);
         online_users.setRows(5);
         jScrollPane1.setViewportView(online_users);
@@ -115,28 +92,26 @@ public class ClientFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scroll_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chat_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                        .addComponent(chat_txt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(send))))
+                        .addComponent(send)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scroll_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addComponent(scroll_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(send)
                     .addComponent(chat_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,11 +128,9 @@ public class ClientFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField chat_txt;
     private javax.swing.JTextArea chat_window;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea online_users;
     private javax.swing.JScrollPane scroll_panel;
     private javax.swing.JButton send;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
