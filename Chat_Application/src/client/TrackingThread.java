@@ -10,6 +10,9 @@ package client;
  * @author Matthew
  */
 public class TrackingThread implements Runnable {
+public static int ThreadUsedCount = 0;
+
+
 
     public void run() {
         System.out.println("Debug mode!");
@@ -24,6 +27,10 @@ public class TrackingThread implements Runnable {
                 }
             }
        
+    
+    public static void main(String args[]) {
+        (new Thread(new TrackingThread())).start();
+    }
                     
     }
     
