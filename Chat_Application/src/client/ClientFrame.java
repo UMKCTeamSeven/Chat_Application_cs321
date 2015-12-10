@@ -2,7 +2,8 @@ package client;
 
 import java.util.Calendar;
 import java.util.LinkedList;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
 
@@ -11,13 +12,40 @@ public class ClientFrame extends javax.swing.JFrame {
     
     Client client;
     Calendar last_update;
-
+    private static int keyCode;
     public ClientFrame(Client client) {
         
         this.client = client;
         this.last_update=Calendar.getInstance();
         initComponents();
         refresh.start();
+        chat_txt.addKeyListener(new KeyListener() {
+            public void HitEnter(KeyEvent e)
+            {
+                keyCode = e.getKeyCode();
+                
+            }
+            @Override 
+            public void keyTyped(KeyEvent e)
+            {
+                
+            }
+            @Override
+            public void keyPressed(KeyEvent e)
+            {
+                //Set user typing here
+            }
+            @Override
+            public void keyReleased(KeyEvent e)
+            {
+                //Set user active here
+            }
+
+            private void sendActionPerformed() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+            
+        });
         
     }
            
@@ -86,6 +114,12 @@ public class ClientFrame extends javax.swing.JFrame {
         chat_window.setRows(5);
         scroll_panel.setViewportView(chat_window);
 
+        chat_txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chat_txtActionPerformed(evt);
+            }
+        });
+
         online_users.setColumns(20);
         online_users.setRows(5);
         jScrollPane1.setViewportView(online_users);
@@ -133,6 +167,17 @@ public class ClientFrame extends javax.swing.JFrame {
         this.chat_txt.setText("");
     }//GEN-LAST:event_sendActionPerformed
 
+    
+    
+    
+    private void chat_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chat_txtActionPerformed
+        if (evt.getID() == KeyEvent.VK_ENTER)
+                {
+                    sendActionPerformed();
+                }
+    }//GEN-LAST:event_chat_txtActionPerformed
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField chat_txt;
     private javax.swing.JTextArea chat_window;
@@ -141,4 +186,15 @@ public class ClientFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scroll_panel;
     private javax.swing.JButton send;
     // End of variables declaration//GEN-END:variables
+
+    private void sendActionPerformed() {
+        String story=this.chat_txt.getText();
+        Calendar date=Calendar.getInstance();
+        String str_date=date.get(Calendar.MONTH) + 1 + "/"+date.get(Calendar.DATE)+"  "+date.get(Calendar.HOUR)+":"+date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND);
+        this.chat_window.append(this.client.username+"("+str_date+"): "+story+"\n");
+        this.client.send_story(this.client.username, date, story);
+        this.chat_txt.setText("");
+    }
+
+
 }
