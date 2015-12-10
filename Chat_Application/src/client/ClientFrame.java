@@ -30,6 +30,7 @@ public class ClientFrame extends javax.swing.JFrame {
             {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
                 sendActionPerformed();
+                
                 }
             }
             @Override
@@ -155,6 +156,7 @@ public class ClientFrame extends javax.swing.JFrame {
         this.chat_window.append(this.client.username+"("+str_date+"): "+story+"\n");
         this.client.send_story(this.client.username, date, story);
         this.chat_txt.setText("");
+        // Remove is typing status here
     }//GEN-LAST:event_sendActionPerformed
 
     
@@ -177,6 +179,7 @@ public class ClientFrame extends javax.swing.JFrame {
         this.chat_window.append(this.client.username+"("+str_date+"): "+story+"\n");
         this.client.send_story(this.client.username, date, story);
         this.chat_txt.setText("");
+        // Remove is typing status here
     }
 
 
