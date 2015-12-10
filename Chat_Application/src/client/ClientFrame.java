@@ -20,11 +20,6 @@ public class ClientFrame extends javax.swing.JFrame {
         initComponents();
         refresh.start();
         chat_txt.addKeyListener(new KeyListener() {
-            public void HitEnter(KeyEvent e)
-            {
-                keyCode = e.getKeyCode();
-                
-            }
             @Override 
             public void keyTyped(KeyEvent e)
             {
@@ -33,7 +28,9 @@ public class ClientFrame extends javax.swing.JFrame {
             @Override
             public void keyPressed(KeyEvent e)
             {
-                //Set user typing here
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                sendActionPerformed();
+                }
             }
             @Override
             public void keyReleased(KeyEvent e)
@@ -41,9 +38,8 @@ public class ClientFrame extends javax.swing.JFrame {
                 //Set user active here
             }
 
-            private void sendActionPerformed() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
+            
+            
             
         });
         
@@ -114,12 +110,6 @@ public class ClientFrame extends javax.swing.JFrame {
         chat_window.setRows(5);
         scroll_panel.setViewportView(chat_window);
 
-        chat_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chat_txtActionPerformed(evt);
-            }
-        });
-
         online_users.setColumns(20);
         online_users.setRows(5);
         jScrollPane1.setViewportView(online_users);
@@ -169,14 +159,7 @@ public class ClientFrame extends javax.swing.JFrame {
 
     
     
-    
-    private void chat_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chat_txtActionPerformed
-        if (evt.getID() == KeyEvent.VK_ENTER)
-                {
-                    sendActionPerformed();
-                }
-    }//GEN-LAST:event_chat_txtActionPerformed
-    
+        
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField chat_txt;

@@ -90,9 +90,6 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="chat_txt">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chat_txtActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
