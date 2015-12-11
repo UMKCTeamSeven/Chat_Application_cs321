@@ -8,4 +8,5 @@ public interface ChatServerInterface extends Remote{
     public LinkedList<String> user_list(String username) throws RemoteException;
     public void send_message(String message,String username,Calendar date) throws RemoteException;
     public void connect(String username) throws RemoteException;
+    public void disconnect(String username) throws RemoteException;
 }

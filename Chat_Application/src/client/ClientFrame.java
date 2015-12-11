@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 public class ClientFrame extends javax.swing.JFrame {
     
     Client client;
+    boolean connected = true;
     Calendar last_update;
     private static int keyCode;
     public ClientFrame(Client client) {
@@ -30,8 +31,11 @@ public class ClientFrame extends javax.swing.JFrame {
             {
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
                 sendActionPerformed();
-                
+                //unset user typing
                 }
+                //set user active
+                //set user typing
+                
             }
             @Override
             public void keyReleased(KeyEvent e)
@@ -52,7 +56,7 @@ public class ClientFrame extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                while(true) {
+                while(connected) {
                     try {
                         Thread.sleep(10000);
                         get_chat();
@@ -95,6 +99,7 @@ public class ClientFrame extends javax.swing.JFrame {
         chat_txt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         online_users = new javax.swing.JTextArea();
+        DisconnectButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(client.username);
@@ -115,21 +120,30 @@ public class ClientFrame extends javax.swing.JFrame {
         online_users.setRows(5);
         jScrollPane1.setViewportView(online_users);
 
+        DisconnectButton.setText("Disconnect");
+        DisconnectButton.setToolTipText("");
+        DisconnectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisconnectButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scroll_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addComponent(chat_txt))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scroll_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(send)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(chat_txt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(send)))
+                        .addComponent(DisconnectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,12 +151,13 @@ public class ClientFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scroll_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(scroll_panel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(send)
-                    .addComponent(chat_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chat_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DisconnectButton))
                 .addContainerGap())
         );
 
@@ -159,11 +174,24 @@ public class ClientFrame extends javax.swing.JFrame {
         // Remove is typing status here
     }//GEN-LAST:event_sendActionPerformed
 
+    private void DisconnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisconnectButtonActionPerformed
+        String theuser = this.client.username.toString();
+        this.chat_txt.setText(theuser + " has disconnected");
+        sendActionPerformed();
+        connected = false;
+        client.disconnect(theuser);
+        send.setEnabled(false);
+        DisconnectButton.setEnabled(false);
+        chat_txt.setEnabled(false);
+        chat_txt.removeKeyListener(null);
+    }//GEN-LAST:event_DisconnectButtonActionPerformed
+
     
     
         
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DisconnectButton;
     private javax.swing.JTextField chat_txt;
     private javax.swing.JTextArea chat_window;
     private javax.swing.JScrollPane jScrollPane1;

@@ -17,6 +17,18 @@ public class Client {
         connectframe.setVisible(true);
     }
     
+    public void disconnect(String username)
+    {
+        try{
+        server.disconnect(username);
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
+    
+    
     public void connect(String username, String ip_address, Calendar date) {
         try {
             server = (ChatServerInterface) Naming.lookup("rmi://" + ip_address + "/ChatService");

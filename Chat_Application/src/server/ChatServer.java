@@ -38,6 +38,11 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerInterfa
         }
     }
     
+    public void disconnect(String username) throws RemoteException
+    {
+        usernames.remove(username);
+    }
+    
     public void connect(String username) throws RemoteException{
         if(!username_exists(username))
             usernames.add(username);    
